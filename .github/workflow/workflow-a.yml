@@ -1,0 +1,34 @@
+# .github/workflows/workflow-a.yml
+name: Workflow A (Scheduler)
+
+on:
+  workflow_dispatch:
+    inputs:
+      delay_seconds:
+        description: "Delay before triggering Workflow B"
+        required: true
+        default: "10"
+
+jobs:
+  schedule:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write # Required to trigger another workflow
+    steps:
+      - name: Install at (scheduler)
+        run: sudo apt-get update && sudo apt-get install -y at
+
+      - name: Schedule GitHub API call
+        run: |
+          echo "Scheduling Workflow B for ${{ inputs.delay_minutes }} minutes from now..."
+
+          # Create the curl command to trigger Workflow B
+          CMD="curl -X POST \
+            -H 'Accept: application/vnd.github+json' \
+            -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/workflow-b.yml/dispatches \
+            -d '{\"ref\":\"main\",\"inputs\":{\"message\":\"Triggered after delay\"}}'"
+
+          # Schedule it using 'at'
+          echo "$CMD" | at now + ${{ inputs.delay_seconds }} seconds

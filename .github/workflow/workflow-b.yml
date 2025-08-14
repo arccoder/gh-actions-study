@@ -1,0 +1,15 @@
+# .github/workflows/workflow-b.yml
+name: Workflow B (Delayed Run)
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Message to display"
+        required: false
+        default: "Triggered later"
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow B started: ${{ github.event.inputs.message }}"
