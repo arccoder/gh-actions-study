@@ -38,10 +38,10 @@ jobs:
           echo "Command to run: $CMD"
 
           curl -X POST \
-            -H 'Accept: application/vnd.github+json' \
-            -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/workflows/workflow-b.yml/dispatches \
-            -d '{\"ref\":\"main\",\"inputs\":{\"message\":\"Triggered after delay\"}}'
+            -d '{"ref":"main","inputs":{"message":"Triggered after delay"}}'
 
 
           # # Schedule it using 'at'
