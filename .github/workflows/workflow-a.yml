@@ -21,7 +21,7 @@ jobs:
 
       - name: Schedule GitHub API call
         run: |
-          echo "Scheduling Workflow B for ${{ inputs.delay_minutes }} minutes from now..."
+          echo "Scheduling Workflow B for ${{ inputs.delay_seconds }} minutes from now..."
 
           # Create the curl command to trigger Workflow B
           CMD="curl -X POST \
