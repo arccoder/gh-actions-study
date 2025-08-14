@@ -37,5 +37,7 @@ jobs:
           # Print the command (for debugging)
           echo "Command to run: $CMD"
 
-          # Schedule it using 'at'
-          echo "$CMD" | at now + ${{ inputs.delay_minutes }} minutes
+          $CMD
+
+          # # Schedule it using 'at'
+          # echo "$CMD" | at now + ${{ inputs.delay_minutes }} minutes
