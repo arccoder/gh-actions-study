@@ -4,7 +4,7 @@ name: Workflow A (Scheduler)
 on:
   workflow_dispatch:
     inputs:
-      delay_seconds:
+      delay_minutes:
         description: "Delay before triggering Workflow B"
         required: true
         default: "10"
@@ -21,7 +21,7 @@ jobs:
 
       - name: Schedule GitHub API call
         run: |
-          echo "Scheduling Workflow B for ${{ inputs.delay_seconds }} minutes from now..."
+          echo "Scheduling Workflow B for ${{ inputs.delay_minutes }} minutes from now..."
 
           # Create the curl command to trigger Workflow B
           CMD="curl -X POST \
@@ -31,4 +31,4 @@ jobs:
             -d '{\"ref\":\"main\",\"inputs\":{\"message\":\"Triggered after delay\"}}'"
 
           # Schedule it using 'at'
-          echo "$CMD" | at now + ${{ inputs.delay_seconds }} seconds
+          echo "$CMD" | at now + ${{ inputs.delay_minutes }} minutes
