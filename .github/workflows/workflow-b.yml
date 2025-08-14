@@ -12,4 +12,5 @@ jobs:
   run:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Workflow B started: ${{ github.event.inputs.message }}"
+      - run: |
+          echo "Workflow B started: ${{ github.event.inputs.message }}"
